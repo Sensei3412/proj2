@@ -120,10 +120,36 @@ public class Main {
                     break;
 
                 case "4":
-                    // Choice 4: Ticket Quick-Buy Menu Standalone Placeholder
-                    System.out.println("\nFeature coming soon! Use Option 1 to Log in & buy instantly.\n");
-                    break;
+                    System.out.println("\n1. Premium Meal Set - $100");
+                    System.out.println("2. Regular Meal Set - $50");
+                    System.out.println("3. Budget Meal Set - $10");
+                    System.out.println("Pick a number");
+                    System.out.print("Input: ");
+                    
+                    int mealChoice = scanner.nextInt();
+                    scanner.nextLine(); // Clear buffer
 
+                    String mealPicked = "";
+                    switch (mealChoice) {
+                        case 1: mealPicked = "Premium Meal Set"; break;
+                        case 2: mealPicked = "Regular Meal Set"; break;
+                        case 3: mealPicked = "Budget Meal Set"; break;
+                        default:
+                            System.out.println("Invalid selection.\n");
+                            break;
+                    }
+
+                    if (mealPicked.isEmpty()) break;
+
+                    System.out.println("\nEnter your ID");
+                    System.out.print("Input: ");
+                    int buyUserId = scanner.nextInt();
+                    scanner.nextLine(); // Clear buffer
+
+                    // Fire the simplified update
+                    creator.buyMealSimple(buyUserId, mealPicked);
+                    System.out.println();
+                    break;
                 default:
                     System.out.println("Invalid menu option selection.\n");
                     break;

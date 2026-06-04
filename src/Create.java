@@ -32,6 +32,36 @@ public class Create extends GalaSystem {
                 System.out.println("User Info: ");
                 System.out.println(generatedId + ", " + name + ", " + age + ", " + email);
             }
+        public void buyMealSimple(int userId, String mealPicked) {
+        String selectQuery = "SELECT name FROM users WHERE id = ?";
+        String updateQuery = "UPDATE users SET food = ? WHERE id = ?";
+
+        try (Connection conn = getConnection()) {
+            String userName = "";
+
+            // 1. Get the username matching the ID
+            try (PreparedStatement selectStmt = conn.prepareStatement(selectQuery)) {
+                selectStmt.setInt(1, userId);
+                try (ResultSet rs = selectStmt.executeQuery()) {
+                    if (rs.next()) {
+                        userName = rs.getString("name");
+                    } else {
+                        System.out.println("\nError: ID " + userId + " not found!");
+                        return;
+                    }
+                }
+            }
+
+            // 2. Simply save the food name into their row
+            try (PreparedStatement updateStmt = conn.prepareStatement(updateQuery)) {
+                updateStmt.setString(1, mealPicked);
+                updateStmt.setInt(2, userId);
+                
+                int rowsUpdated = updateStmt.executeUpdate();
+                if (rowsUpdated > 0) {
+                    System.out.println("\n" + userName + " bought " + mealPicked);
+                }
+            }
         } catch (SQLException e) {
             System.out.println("Error storing user details: " + e.getMessage());
         }
