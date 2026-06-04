@@ -1,0 +1,5 @@
+# Ignore compiled Java binaries
+*.class
+
+# Ignore local VS Code configuration settings
+.vscode/
