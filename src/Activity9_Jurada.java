@@ -1,9 +1,13 @@
+class OddNumberException extends IllegalArgumentException {
+    public OddNumberException(String message) {
+        super(message);
+    }
+}
 public class Activity9_Jurada {
 
     public void checkIfEven(int number) {
-
         if (number % 2 != 0) {
-            throw new IllegalArgumentException("Error: " + number + " is odd.");
+            throw new OddNumberException("Error: " + number + " is odd.");
         } else {
             System.out.println(number + " is even.");
         }
@@ -15,7 +19,7 @@ public class Activity9_Jurada {
         System.out.println("Let's say the number is 14:");
         try {
             checker.checkIfEven(14);
-        } catch (IllegalArgumentException e) {
+        } catch (OddNumberException e) { 
             System.out.println(e.getMessage());
         }
 
@@ -24,7 +28,7 @@ public class Activity9_Jurada {
         System.out.println("Let's say the number is 17:");
         try {
             checker.checkIfEven(17);
-        } catch (IllegalArgumentException e) {
+        } catch (OddNumberException e) {
             System.out.println(e.getMessage());
         }
     }

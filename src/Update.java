@@ -1,25 +1,24 @@
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class Update extends GalaSystem {
-
-    public boolean updatePassword(int userId, String oldPassword, String newPassword) {
-        String query = "UPDATE users SET password = ? WHERE password = ?";
-
+    public void updateTicket(int id, String ticketType, int price) {
+        String query = "UPDATE users SET ticket_type = ?, ticket_price = ? WHERE id = ?";
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
-            
-            stmt.setInt(1, userId);
-            stmt.setString(1, newPassword);
-            stmt.setString(2, oldPassword);
-            
-            int rowsUpdated = stmt.executeUpdate();
-            return rowsUpdated > 0; 
-            
-        } catch (SQLException e) {
-            System.out.println("Error updating credentials: " + e.getMessage());
-            return false;
-        }
+            stmt.setString(1, ticketType);
+            stmt.setInt(2, price);
+            stmt.setInt(3, id);
+            stmt.executeUpdate();
+        } catch (SQLException e) { System.out.println("Ticket Update Error: " + e.getMessage()); }
+    }
+
+    public void addMealToUser(int id, String mealName, int price) {
+        String query = "UPDATE users SET food = ? WHERE id = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, mealName);
+            stmt.setInt(2, id);
+            stmt.executeUpdate();
+        } catch (SQLException e) { System.out.println("Meal Purchase Error: " + e.getMessage()); }
     }
 }
